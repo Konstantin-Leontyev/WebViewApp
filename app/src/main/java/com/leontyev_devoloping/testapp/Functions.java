@@ -4,9 +4,18 @@ import static com.leontyev_devoloping.testapp.Variables.CONFIG;
 import static com.leontyev_devoloping.testapp.Variables.CONFIG_EDITOR;
 import static com.leontyev_devoloping.testapp.Variables.REMOTE_CONFIG;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -16,7 +25,7 @@ import java.util.Locale;
 public class Functions {
 
     //Реализация метода запроса url
-    public static void GetUrl(Activity activity) {
+    public static void GetUrl(Activity currentActivity) {
         try {
             //Инициализируем объект удаленной конфигурации и задаем ему таймаут обновления
             REMOTE_CONFIG = FirebaseRemoteConfig.getInstance();
@@ -28,7 +37,7 @@ public class Functions {
             REMOTE_CONFIG.setConfigSettingsAsync(configSettings);
             //Получаем данные конфигурации и активируем их
             REMOTE_CONFIG.fetchAndActivate()
-                    .addOnCompleteListener(activity, task -> {
+                    .addOnCompleteListener(currentActivity, task -> {
                         if (task.isSuccessful()) {
                             //Вызываем редактор
                             CONFIG_EDITOR = CONFIG.edit();
@@ -41,7 +50,7 @@ public class Functions {
             //Отлавливаем исключения которые может выбросить Firebase
         } catch ( IllegalStateException firebaseRemoteConfigException) {
             //Выводим всплывающее окно уведомления об ошибке
-            System.out.println(firebaseRemoteConfigException.getMessage());
+            ShowErrorWindow(currentActivity, firebaseRemoteConfigException.getMessage());
         }
     }
 
@@ -55,7 +64,7 @@ public class Functions {
         currentScreen.finish();
     }
 
-    public static Boolean checkIsEmu() {
+    public static Boolean isEmulator() {
         if (BuildConfig.DEBUG) return false; // when developer use this build on emulator
         String phoneModel = Build.MODEL;
         String buildProduct = Build.PRODUCT;
@@ -80,6 +89,27 @@ public class Functions {
         if (result) return true;
         result = "google_sdk".equals(buildProduct);
         return result;
+    }
+
+    public static void ShowErrorWindow(Activity currentActivity, String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(currentActivity);
+        LayoutInflater inflater = LayoutInflater.from(currentActivity);
+        @SuppressLint("InflateParams") View error_screen = inflater.inflate(R.layout.error_sceen, null);
+        dialog.setView(error_screen);
+        TextView textView = (TextView) error_screen.findViewById(R.id.textView);
+        textView.setText(message);
+        dialog.setNegativeButton("Закрыть", (dialog1, which) -> dialog1.dismiss());
+    }
+
+    public static boolean isOffline(Context context)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting())
+        {
+            return false;
+        }
+        return true;
     }
 }
 

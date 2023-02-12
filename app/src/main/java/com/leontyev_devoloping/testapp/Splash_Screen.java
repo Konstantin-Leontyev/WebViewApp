@@ -2,7 +2,9 @@ package com.leontyev_devoloping.testapp;
 
 import static com.leontyev_devoloping.testapp.Functions.GetUrl;
 import static com.leontyev_devoloping.testapp.Functions.GoToTargetScreen;
-import static com.leontyev_devoloping.testapp.Functions.checkIsEmu;
+import static com.leontyev_devoloping.testapp.Functions.ShowErrorWindow;
+import static com.leontyev_devoloping.testapp.Functions.isEmulator;
+import static com.leontyev_devoloping.testapp.Functions.isOffline;
 import static com.leontyev_devoloping.testapp.Variables.CONFIG;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +19,14 @@ public class Splash_Screen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
         //Проверяем наличие файла коныигурации если его нет будет создан файл SharedPreferences с именем Config
         CONFIG = getSharedPreferences("Config", MODE_PRIVATE);
+
+
+        //Использую для проверки браузера
+        //Подлежат удалению основной код ниже
         GetUrl(this);
         GoToTargetScreen(this, Web_Screen.class);
+
+
 
 /*        //Задаем отложенное выполнение задачи
         new Handler().postDelayed(() -> {
@@ -27,9 +35,10 @@ public class Splash_Screen extends AppCompatActivity {
             if(CONFIG.getString("url", "").isEmpty()) {
                 //Вызываем метод получения url
                 GetUrl(this);
-                //Проверяем на пустую строку, эмулятор, (добавить проверку интеренета)
-                if(CONFIG.getString("url", "").isEmpty() || checkIsEmu() || ) {
+                //Повторно проверяем на пустую строку, эмулятор, (добавить проверку интеренета)
+                if(CONFIG.getString("url", "").isEmpty() || isEmulator() || isOffline(this)) {
                     //Переходим на экран с заглушкой
+                    if(isOffline(this)) ShowErrorWindow(this, "Для продолжения необходимо подключиться к сети");
                     GoToTargetScreen(this, Game_Screen.class);
                 } else {
                     //Переходим на Web_Screen и открываем указанный адрес
