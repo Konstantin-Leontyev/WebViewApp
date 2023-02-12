@@ -44,14 +44,14 @@ public class Functions {
             //Отлавливаем исключения которые может выбросить Firebase
         } catch ( IllegalStateException firebaseRemoteConfigException) {
             //Выводим всплывающее окно уведомления об ошибке
-            GoToTargetScreen(currentActivity, Error_Screen.class, "Ошибка получения файла конфигурации");
+            GoToTargetScreen(currentActivity,"Ошибка получения файла конфигурации");
         }
     }
 
     //Универсальный метод перехода между активностями
-    public static void GoToTargetScreen(Activity currentScreen, Class targetScreen, String message) {
+    public static void GoToTargetScreen(Activity currentScreen, String message) {
         //Переходим на целевую активность
-        Intent intent = new Intent(currentScreen, targetScreen);
+        Intent intent = new Intent(currentScreen, Error_Screen.class);
         intent.putExtra("Message", message);
         //Запускаем целевую активность
         currentScreen.startActivity(intent);

@@ -18,12 +18,13 @@ public class Splash_Screen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
         //Проверяем наличие файла коныигурации если его нет будет создан файл SharedPreferences с именем Config
         CONFIG = getSharedPreferences("Config", MODE_PRIVATE);
+        GoToTargetScreen(this, Game_Screen.class);
         //Задаем отложенное выполнение задачи
-        new Handler().postDelayed(() -> {
+/*        new Handler().postDelayed(() -> {
             //Проверяем есть ли интернет
             if(!isOnline(this)) {
                 //Если нет выводим окно уведомления
-                GoToTargetScreen(this, Error_Screen.class, "Для продолжения необходимо подключение к сети");
+                GoToTargetScreen(this, "Для продолжения необходимо подключение к сети");
                 //Если есть
             } else {
                 //Вызываем метод получения url
@@ -37,6 +38,6 @@ public class Splash_Screen extends AppCompatActivity {
             else {
                 GoToTargetScreen(this, Web_Screen.class);
             }
-        }, 2000);
+        }, 2000);*/
     }
 }

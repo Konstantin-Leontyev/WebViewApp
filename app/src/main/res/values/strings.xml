@@ -2,4 +2,7 @@
     <string name="app_name">TestApp</string>
     <string name="error_screen_image_view">Error screen image</string>
     <string name="error_screen_text_view">Error screen text view</string>
+    <string name="bet">Сделайте ставку</string>
+    <string name="rotate">Вращять</string>
+
 </resources>
