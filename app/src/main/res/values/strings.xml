@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TestApp</string>
-    <string name="remote_config_error">Ошибка получения файла конфигурации</string>
+    <string name="error_screen_image_view">Error screen image</string>
+    <string name="error_screen_text_view">Error screen text view</string>
 </resources>

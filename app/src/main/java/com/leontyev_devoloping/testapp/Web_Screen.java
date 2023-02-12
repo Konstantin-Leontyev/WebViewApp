@@ -20,9 +20,6 @@ public class Web_Screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_screen);
         webView = findViewById(R.id.webView);
-        //Разрешаем использование cookie
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.setAcceptCookie(true);
         //Создаем браузер внутри приложения
         webView.setWebViewClient(new WebViewClient());
         //Задаем настройки браузера
@@ -43,6 +40,9 @@ public class Web_Screen extends AppCompatActivity {
         webSettings.setAllowContentAccess(true);
         //Проверка на старые версии (в решениеие проблемы не помогла)
         webSettings.setMixedContentMode(MIXED_CONTENT_ALWAYS_ALLOW);
+        //Разрешаем использование cookie
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
         //Открываем старницу
         webView.loadUrl(CONFIG.getString("url", " "));
     }

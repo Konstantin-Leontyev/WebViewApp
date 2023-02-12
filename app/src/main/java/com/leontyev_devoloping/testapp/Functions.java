@@ -4,18 +4,12 @@ import static com.leontyev_devoloping.testapp.Variables.CONFIG;
 import static com.leontyev_devoloping.testapp.Variables.CONFIG_EDITOR;
 import static com.leontyev_devoloping.testapp.Variables.REMOTE_CONFIG;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -50,11 +44,21 @@ public class Functions {
             //Отлавливаем исключения которые может выбросить Firebase
         } catch ( IllegalStateException firebaseRemoteConfigException) {
             //Выводим всплывающее окно уведомления об ошибке
-            ShowErrorWindow(currentActivity, firebaseRemoteConfigException.getMessage());
+            GoToTargetScreen(currentActivity, Error_Screen.class, "Ошибка получения файла конфигурации");
         }
     }
 
     //Универсальный метод перехода между активностями
+    public static void GoToTargetScreen(Activity currentScreen, Class targetScreen, String message) {
+        //Переходим на целевую активность
+        Intent intent = new Intent(currentScreen, targetScreen);
+        intent.putExtra("Message", message);
+        //Запускаем целевую активность
+        currentScreen.startActivity(intent);
+        //Завершаем текущую активность
+        currentScreen.finish();
+    }
+
     public static void GoToTargetScreen(Activity currentScreen, Class targetScreen) {
         //Переходим на целевую активность
         Intent intent = new Intent(currentScreen, targetScreen);
@@ -90,26 +94,11 @@ public class Functions {
         result = "google_sdk".equals(buildProduct);
         return result;
     }
-
-    public static void ShowErrorWindow(Activity currentActivity, String message) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(currentActivity);
-        LayoutInflater inflater = LayoutInflater.from(currentActivity);
-        @SuppressLint("InflateParams") View error_screen = inflater.inflate(R.layout.error_sceen, null);
-        dialog.setView(error_screen);
-        TextView textView = (TextView) error_screen.findViewById(R.id.textView);
-        textView.setText(message);
-        dialog.setNegativeButton("Закрыть", (dialog1, which) -> dialog1.dismiss());
-    }
-
-    public static boolean isOffline(Context context)
+    public static boolean isOnline(Context context)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting())
-        {
-            return false;
-        }
-        return true;
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
 
