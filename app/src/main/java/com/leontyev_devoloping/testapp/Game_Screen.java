@@ -31,9 +31,9 @@ public class Game_Screen extends AppCompatActivity {
     }
     public void onClickStart(View view)
     {
-        int old_deegre = degrees % 360;
+        int old_degree = degrees % 360;
         degrees = random.nextInt(3600) + 720;
-        RotateAnimation rotate = new RotateAnimation(old_deegre, degrees,RotateAnimation.RELATIVE_TO_SELF,
+        RotateAnimation rotate = new RotateAnimation(old_degree, degrees,RotateAnimation.RELATIVE_TO_SELF,
                 0.5f,RotateAnimation.RELATIVE_TO_SELF,0.5f);
         rotate.setDuration(3600);
         rotate.setFillAfter(true);
@@ -58,12 +58,10 @@ public class Game_Screen extends AppCompatActivity {
         tvResult = findViewById(R.id.tvResult);
         rul = findViewById(R.id.rul);
         random = new Random();
-
     }
     private String getResult(int degrees)
     {
         String text = "";
-
         int factor_x = 1;
         int factor_y = 3;
         for(int i = 0;i < 37; i++){
