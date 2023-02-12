@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="remote_config_error">Ошибка получения файла конфигурации</string>
+</resources>

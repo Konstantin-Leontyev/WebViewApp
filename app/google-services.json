@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "418648323280",
+    "project_id": "testapp-592b7",
+    "storage_bucket": "testapp-592b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418648323280:android:05b8e3a699d1b1f3f95ad5",
+        "android_client_info": {
+          "package_name": "com.leontyev_devoloping.testapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418648323280-khs753ss4qrrtuc7vm2rcr8nf5dfuuad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPx7G7dz9CRp0JcMe6aQPirPlfxehobZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418648323280-khs753ss4qrrtuc7vm2rcr8nf5dfuuad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418648323280:android:16b7567b3b879baaf95ad5",
+        "android_client_info": {
+          "package_name": "ru.buspass.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418648323280-khs753ss4qrrtuc7vm2rcr8nf5dfuuad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPx7G7dz9CRp0JcMe6aQPirPlfxehobZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418648323280-khs753ss4qrrtuc7vm2rcr8nf5dfuuad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
