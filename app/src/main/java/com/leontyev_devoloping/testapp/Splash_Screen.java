@@ -28,14 +28,13 @@ public class Splash_Screen extends AppCompatActivity {
             } else {
                 //Вызываем метод получения url
                 GetUrl(this);
-            }
-            //Если строка не содержит адреса или эмулятор
-            if (CONFIG.getString("url", "").isEmpty() || isEmulator())
-                //Переходим на экран с заглушкой
-                GoToTargetScreen(this, Game_Screen.class);
-            //Если содержит адрес переходим на Web_Screen и открываем указанный адрес
-            else {
-                GoToTargetScreen(this, Web_Screen.class);
+                //Если строка не содержит адреса и устройство не эмулятор переходим в браузер и открываем указанный адрес
+                if (CONFIG.getString("url", "").isEmpty() || isEmulator())
+                    GoToTargetScreen(this, Game_Screen.class);
+                    //Иначе переходим на экран заглушки
+                else {
+                    GoToTargetScreen(this, Web_Screen.class);
+                }
             }
         }, 2000);
     }

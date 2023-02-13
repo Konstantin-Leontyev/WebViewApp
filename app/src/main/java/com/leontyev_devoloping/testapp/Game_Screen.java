@@ -43,39 +43,29 @@ public class Game_Screen extends AppCompatActivity {
         zero = findViewById(R.id.zero);
         roulette = findViewById(R.id.rul);
         random = new Random();
-
     }
-
     //Устанавливаем слушатель на красное
     public void setRed(View view){
         choice = "КРАСНОЕ";
-        red.setVisibility(View.INVISIBLE);
-        black.setVisibility(View.INVISIBLE);
-        zero.setVisibility(View.INVISIBLE);
-        onClickStart();
+        rotateRoulette();
     }
 
     //Устанавливаем слушатель на черное
     public void setBlack(View view){
         choice = "ЧЁРНОЕ";
-        red.setVisibility(View.INVISIBLE);
-        black.setVisibility(View.INVISIBLE);
-        zero.setVisibility(View.INVISIBLE);
-        onClickStart();
+        rotateRoulette();
     }
-
     //Устанавливаем слушатель на зеро
     public void setZero(View view){
         choice = "ЗЕРО";
+        rotateRoulette();
+    }
+    //Зовите Якубовича, мы вращяем барабан
+    public void rotateRoulette()
+    {
         red.setVisibility(View.INVISIBLE);
         black.setVisibility(View.INVISIBLE);
         zero.setVisibility(View.INVISIBLE);
-        onClickStart();
-    }
-
-    //Зовите Якубовича, мы вращяем барабан
-    public void onClickStart()
-    {
         int old_degree = degrees % 360;
         degrees = random.nextInt(3600) + 720;
         RotateAnimation rotate = new RotateAnimation(old_degree, degrees,RotateAnimation.RELATIVE_TO_SELF,
@@ -124,6 +114,6 @@ public class Game_Screen extends AppCompatActivity {
             zero.setVisibility(View.VISIBLE);
             winner.setText("");
             result.setText(R.string.bet);
-        }, 2500);
+        }, 1000);
     }
 }

@@ -17,7 +17,6 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import java.util.Locale;
 
 public class Functions {
-
     //Реализация метода запроса url
     public static void GetUrl(Activity currentActivity) {
         try {
@@ -42,23 +41,12 @@ public class Functions {
                         }
                     });
             //Отлавливаем исключения которые может выбросить Firebase
-        } catch ( IllegalStateException firebaseRemoteConfigException) {
+        } catch (IllegalStateException firebaseRemoteConfigException) {
             //Выводим всплывающее окно уведомления об ошибке
             GoToTargetScreen(currentActivity,"Ошибка получения файла конфигурации");
         }
     }
-
-    //Универсальный метод перехода между активностями
-    public static void GoToTargetScreen(Activity currentScreen, String message) {
-        //Переходим на целевую активность
-        Intent intent = new Intent(currentScreen, Error_Screen.class);
-        intent.putExtra("Message", message);
-        //Запускаем целевую активность
-        currentScreen.startActivity(intent);
-        //Завершаем текущую активность
-        currentScreen.finish();
-    }
-
+    //Метод перехода между активностями
     public static void GoToTargetScreen(Activity currentScreen, Class targetScreen) {
         //Переходим на целевую активность
         Intent intent = new Intent(currentScreen, targetScreen);
@@ -67,16 +55,28 @@ public class Functions {
         //Завершаем текущую активность
         currentScreen.finish();
     }
-
+    //Перегрузки метода перехода между активностями для перехода на сервисное окно
+    public static void GoToTargetScreen(Activity currentScreen, String message) {
+        //Переходим на целевую активность
+        Intent intent = new Intent(currentScreen, Error_Screen.class);
+        //Передаем сообщение в Error_Screen
+        intent.putExtra("Message", message);
+        //Запускаем целевую активность
+        currentScreen.startActivity(intent);
+        //Завершаем текущую активность
+        currentScreen.finish();
+    }
+    //Метод проверки на эмулятор
     public static Boolean isEmulator() {
-        if (BuildConfig.DEBUG) return false; // when developer use this build on emulator
+        //if (BuildConfig.DEBUG) return false; // для работы на эмуляторе
         String phoneModel = Build.MODEL;
         String buildProduct = Build.PRODUCT;
         String buildHardware = Build.HARDWARE;
         String brand = Build.BRAND;
-        boolean result = (Build.FINGERPRINT.startsWith("generic")
+        Boolean result = (Build.FINGERPRINT.startsWith("generic")
                 || phoneModel.contains("google_sdk")
-                || phoneModel.toLowerCase(Locale.getDefault()).contains("droid4x") || phoneModel.contains("Emulator")
+                || phoneModel.toLowerCase(Locale.getDefault()).contains("droid4x")
+                || phoneModel.contains("Emulator")
                 || phoneModel.contains("Android SDK built for x86")
                 || Build.MANUFACTURER.contains("Genymotion")
                 || buildHardware.equals("goldfish")
@@ -86,7 +86,8 @@ public class Functions {
                 || buildProduct.equals("sdk_x86")
                 || buildProduct.equals("vbox86p")
                 || Build.BOARD.toLowerCase(Locale.getDefault()).contains("nox")
-                || Build.BOOTLOADER.toLowerCase(Locale.getDefault()).contains("nox") || buildHardware.toLowerCase(Locale.getDefault()).contains("nox")
+                || Build.BOOTLOADER.toLowerCase(Locale.getDefault()).contains("nox")
+                || buildHardware.toLowerCase(Locale.getDefault()).contains("nox")
                 || buildProduct.toLowerCase(Locale.getDefault()).contains("nox"));
         if (result) return true;
         result = brand.startsWith("generic") && Build.DEVICE.startsWith("generic");
@@ -94,6 +95,7 @@ public class Functions {
         result = "google_sdk".equals(buildProduct);
         return result;
     }
+    //Метод проверки состояния подключения к сети
     public static boolean isOnline(Context context)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

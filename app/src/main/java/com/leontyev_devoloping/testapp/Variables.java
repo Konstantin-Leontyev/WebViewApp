@@ -12,4 +12,6 @@ public class Variables {
     public static FirebaseRemoteConfig REMOTE_CONFIG;
     //Объявляем переменную типа SharedPreferences.Editor для вызова редактора конфигурационного файла
     public static SharedPreferences.Editor CONFIG_EDITOR;
+    //Объявляем флаг статуса сети
+    public static String NETWORK_STATUS;
 }
