@@ -31,7 +31,7 @@ public class Splash_Screen extends AppCompatActivity {
                 //Если строка не содержит адреса и устройство не эмулятор переходим в браузер и открываем указанный адрес
                 if (CONFIG.getString("url", "").isEmpty() || isEmulator())
                     GoToTargetScreen(this, Game_Screen.class);
-                    //Иначе переходим на экран заглушки
+                //Иначе переходим на экран заглушки
                 else {
                     GoToTargetScreen(this, Web_Screen.class);
                 }

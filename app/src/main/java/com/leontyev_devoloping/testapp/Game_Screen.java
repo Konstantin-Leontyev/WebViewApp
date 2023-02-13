@@ -16,16 +16,18 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class Game_Screen extends AppCompatActivity {
-    private TextView result;
-    private TextView winner;
-    private Button red;
-    private Button black;
-    private Button zero;
+    //Объявляем поля разметки
+    private TextView result, winner;
+    private Button red, black, zero;
     private ImageView roulette;
     private Random random;
+    //Переменная для хранения угла смещения
     private int degrees = 0;
+    //Переменна хранящяя размер поля рулетки
     private static final float FACTOR = 4.86f;
+    //Переменная для хранения выбора игрока
     private String choice = "";
+    //Масив хранящий занчения полей рулекти
     private final String[] numbers = {"32 КРАСНОЕ","15 ЧЁРНОЕ","19 КРАСНОЕ","4 ЧЁРНОЕ",
             "21 КРАСНОЕ","2 ЧЁРНОЕ","25 КРАСНОЕ","17 ЧЁРНОЕ", "34 КРАСНОЕ",
             "6 ЧЁРНОЕ","27 КРАСНОЕ","13 ЧЁРНОЕ","36 КРАСНОЕ","11 ЧЁРНОЕ","30 КРАСНОЕ",
@@ -36,6 +38,7 @@ public class Game_Screen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
+        //Устанавливаем связь с полями разметки
         result = findViewById(R.id.tvResult);
         winner = findViewById(R.id.winner);
         red = findViewById(R.id.red);
@@ -49,7 +52,6 @@ public class Game_Screen extends AppCompatActivity {
         choice = "КРАСНОЕ";
         rotateRoulette();
     }
-
     //Устанавливаем слушатель на черное
     public void setBlack(View view){
         choice = "ЧЁРНОЕ";
@@ -63,6 +65,7 @@ public class Game_Screen extends AppCompatActivity {
     //Зовите Якубовича, мы вращяем барабан
     public void rotateRoulette()
     {
+        //Скрываем кнопки
         red.setVisibility(View.INVISIBLE);
         black.setVisibility(View.INVISIBLE);
         zero.setVisibility(View.INVISIBLE);
@@ -86,8 +89,10 @@ public class Game_Screen extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+        //Запускаем анимацию
         roulette.startAnimation(rotate);
     }
+    //Метод определения победителя
     private String getResult(int degrees)
     {
         String text = "";
@@ -107,6 +112,7 @@ public class Game_Screen extends AppCompatActivity {
         newGame();
         return text;
     }
+    //Метод подготовки к новой игре
     private void newGame (){
         new Handler().postDelayed(() -> {
             red.setVisibility(View.VISIBLE);
