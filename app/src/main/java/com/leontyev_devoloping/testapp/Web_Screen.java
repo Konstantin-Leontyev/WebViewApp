@@ -13,7 +13,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 public class Web_Screen extends AppCompatActivity {
     WebView webView;
-
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,8 @@ public class Web_Screen extends AppCompatActivity {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         //Открываем старницу
-        webView.loadUrl(CONFIG.getString("url", " "));
+        String url = CONFIG.getString("url", " ");
+        webView.loadUrl(url);
     }
     //Метод обработки нажатия кнопки назад
     public void onBackPressed(){

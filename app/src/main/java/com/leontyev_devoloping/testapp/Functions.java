@@ -69,11 +69,13 @@ public class Functions {
     //Метод проверки на эмулятор
     public static Boolean isEmulator() {
         //if (BuildConfig.DEBUG) return false; // для работы на эмуляторе
+
         String phoneModel = Build.MODEL;
         String buildProduct = Build.PRODUCT;
         String buildHardware = Build.HARDWARE;
         String brand = Build.BRAND;
-        Boolean result = (Build.FINGERPRINT.startsWith("generic")
+
+        return (Build.FINGERPRINT.startsWith("generic")
                 || phoneModel.contains("google_sdk")
                 || phoneModel.toLowerCase(Locale.getDefault()).contains("droid4x")
                 || phoneModel.contains("Emulator")
@@ -83,17 +85,14 @@ public class Functions {
                 || brand.contains("google")
                 || buildHardware.equals("vbox86")
                 || buildProduct.equals("sdk")
+                || buildProduct.equals("google_sdk")
                 || buildProduct.equals("sdk_x86")
                 || buildProduct.equals("vbox86p")
                 || Build.BOARD.toLowerCase(Locale.getDefault()).contains("nox")
                 || Build.BOOTLOADER.toLowerCase(Locale.getDefault()).contains("nox")
                 || buildHardware.toLowerCase(Locale.getDefault()).contains("nox")
-                || buildProduct.toLowerCase(Locale.getDefault()).contains("nox"));
-        if (result) return true;
-        result = brand.startsWith("generic") && Build.DEVICE.startsWith("generic");
-        if (result) return true;
-        result = "google_sdk".equals(buildProduct);
-        return result;
+                || buildProduct.toLowerCase(Locale.getDefault()).contains("nox"))
+                || (brand.startsWith("generic") && Build.DEVICE.startsWith("generic"));
     }
     //Метод проверки состояния подключения к сети
     public static boolean isOnline(Context context)
