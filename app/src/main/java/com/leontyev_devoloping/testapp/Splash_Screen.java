@@ -18,30 +18,34 @@ public class Splash_Screen extends AppCompatActivity {
         //Проверяем наличие файла коныигурации если его нет будет создан файл SharedPreferences с именем Config
         CONFIG = getSharedPreferences("Config", MODE_PRIVATE);
         //Задаем отложенное выполнение задачи
- /*       new Handler().postDelayed(() -> {
+        new Handler().postDelayed(() -> {
             //На устройстве сохранена ссылка?
             if (CONFIG.getString("url", "").isEmpty()) {
-                //Подключаемся к уадленному файлу
+                //Если нет Подключаемся к уадленному файлу
                 GetUrl(this);
                 //Если строка пуста, устройство эмулятор или нет интернета переходим в браузер и открываем указанный адрес
                 if (CONFIG.getString("url", "").isEmpty() || isEmulator() || !isOnline(this)) {
                     //Переходим на экран заглушки
                     GoToTargetScreen(this, Game_Screen.class);
+                //иначе
                 } else {
-                    //Иначе нет переходим в браузер и открываем указанный адрес
+                    //переходим в браузер и открываем указанный адрес
                     GoToTargetScreen(this, Web_Screen.class);
                 }
+            //Если ссылка есть
+            } else {
                 //Проверяем есть ли интернет
-            } else if(isOnline(this)) {
-                //Если да переходим в браузер и открываем указанный адрес
-                GoToTargetScreen(this, Web_Screen.class);
+                if (isOnline(this)) {
+                    //Если да переходим в браузер и открываем указанный адрес
+                    GoToTargetScreen(this, Web_Screen.class);
                 } else {
                     //Если нет выводим окно уведомления
                     GoToTargetScreen(this, "Для продолжения необходимо подключение к сети");
                 }
-        }, 2000);*/
+            }
+        }, 2000);
 
-        //Задаем отложенное выполнение задачи
+/*        //Задаем отложенное выполнение задачи
         new Handler().postDelayed(() -> {
             //Проверяем есть ли интернет
             if(!isOnline(this)) {
@@ -59,6 +63,6 @@ public class Splash_Screen extends AppCompatActivity {
                     GoToTargetScreen(this, Web_Screen.class);
                 }
             }
-        }, 2000);
+        }, 2000);*/
     }
 }
